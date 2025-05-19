@@ -1,0 +1,21 @@
+﻿@model StudentSwipe.Models.Profile
+
+<h2>My Profile</h2>
+
+<p><strong>Name:</strong> @Model.FullName</p>
+<p><strong>Interests:</strong> @Model.Interests</p>
+<p><strong>Age:</strong> @Model.Age</p>
+<p><strong>User Type:</strong> @Model.UserType</p>
+<p><strong>Study Preferences:</strong> @Model.StudyPreferences</p>
+
+@if (Model.UserType == "University")
+{
+    <p><strong>Roommate Preferences:</strong> @Model.RoommatePreferences</p>
+}
+
+@if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
+{
+    <img src="@Model.ProfilePictureUrl" alt="Profile Picture" width="150" />
+}
+
+<a asp-action="CreateOrEdit" class="btn btn-warning">Edit Profile</a>
