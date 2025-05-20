@@ -36,7 +36,7 @@ public class AuthenticationController : Controller
     public async Task<IActionResult> Register([FromForm] RegisterViewModel model)
     {
         if (!ModelState.IsValid)
-            return View("~/Views/Home/Register.cshtml", model);
+            return View("~/Views/Home/Login.cshtml", model); // Use the full path since view is under Home
 
         var emailDomain = model.Email.Split('@').Last().ToLower();
 
@@ -46,7 +46,7 @@ public class AuthenticationController : Controller
         if (!isAllowed)
         {
             ModelState.AddModelError("Email", "Please use a valid school email address.");
-            return View("~/Views/Home/Register.cshtml", model);
+            return View("~/Views/Home/Login.cshtml", model);
         }
 
         var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -61,8 +61,10 @@ public class AuthenticationController : Controller
         foreach (var error in result.Errors)
             ModelState.AddModelError(string.Empty, error.Description);
 
-        return View("~/Views/Home/Register.cshtml", model);
+        return View("~/Views/Home/Login.cshtml", model); // Again, full path to existing combined view
     }
+
+
 
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromForm] LoginModel model, string returnUrl = null)
