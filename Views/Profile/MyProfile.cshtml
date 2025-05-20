@@ -1,21 +1,108 @@
 ﻿@model StudentSwipe.Models.Profile
 
-<h2>My Profile</h2>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,800" rel="stylesheet" />
 
-<p><strong>Name:</strong> @Model.FullName</p>
-<p><strong>Interests:</strong> @Model.Interests</p>
-<p><strong>Age:</strong> @Model.Age</p>
-<p><strong>User Type:</strong> @Model.UserType</p>
-<p><strong>Study Preferences:</strong> @Model.StudyPreferences</p>
+<div class="profile-container">
+    <div class="profile-card">
+        @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
+        {
+            <div class="profile-picture-container">
+                <img src="@Model.ProfilePictureUrl" alt="Profile Picture" class="profile-picture" />
+            </div>
 
-@if (Model.UserType == "University")
-{
-    <p><strong>Roommate Preferences:</strong> @Model.RoommatePreferences</p>
-}
+        }
 
-@if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
-{
-    <img src="@Model.ProfilePictureUrl" alt="Profile Picture" width="150" />
-}
+        <div class="profile-info">
+            <p><strong>Name:</strong> @Model.FullName</p>
+            <p><strong>Interests:</strong> @Model.Interests</p>
+            <p><strong>Age:</strong> @Model.Age</p>
+            <p><strong>User Type:</strong> @Model.UserType</p>
+            <p><strong>Study Preferences:</strong> @Model.StudyPreferences</p>
 
-<a asp-action="CreateOrEdit" class="btn btn-warning">Edit Profile</a>
+            @if (Model.UserType == "University")
+            {
+                <p><strong>Roommate Preferences:</strong> @Model.RoommatePreferences</p>
+            }
+
+            <a asp-action="CreateOrEdit" class="edit-button">Edit Profile</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background: #f0e7ff;
+        margin: 0;
+        padding: 40px 0;
+    }
+
+    .profile-container {
+        max-width: 500px;
+        margin: 0 auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 20px;
+    }
+
+    .profile-picture-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-picture {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #9d3ff1;
+        box-shadow: 0 8px 16px rgba(109, 35, 210, 0.25);
+        transition: transform 0.3s ease;
+    }
+
+        .profile-picture:hover {
+            transform: scale(1.05);
+        }
+
+    .profile-info {
+        background: linear-gradient(to right, #9d3ff1, #c569f5);
+        padding: 25px;
+        border-radius: 15px;
+        color: white;
+        box-shadow: 0 8px 20px rgba(157, 63, 241, 0.3);
+    }
+
+        .profile-info h1 {
+            margin-top: 0;
+            font-size: 28px;
+        }
+
+        .profile-info p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .profile-info strong {
+            font-weight: 600;
+        }
+
+    .edit-button {
+        display: inline-block;
+        padding: 12px 30px;
+        margin-top: 15px;
+        background: linear-gradient(to right, #ff52fd, #9d3ff1, #6c30ff);
+        color: white;
+        border: none;
+        border-radius: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+
+    button[type="submit"]:hover,
+    .btn-primary:hover {
+        background: linear-gradient(90deg, #9d3ff1, #ff52fd, #6c30ff);
+    }
+</style>
