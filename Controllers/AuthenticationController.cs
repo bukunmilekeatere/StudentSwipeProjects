@@ -21,10 +21,6 @@ public class AuthenticationController : Controller
     }
 
     [HttpGet("Register")]
-    public IActionResult Register()
-    {
-        return View("~/Views/Home/Register.cshtml");
-    }
 
     [HttpGet("Login")]
     public IActionResult Login()
@@ -36,8 +32,7 @@ public class AuthenticationController : Controller
     public async Task<IActionResult> Register([FromForm] RegisterViewModel model)
     {
         if (!ModelState.IsValid)
-            return View("~/Views/Home/Login.cshtml", model); // Use the full path since view is under Home
-
+            return View("~/Views/Home/Login.cshtml", model);
         var emailDomain = model.Email.Split('@').Last().ToLower();
 
         var isAllowed = _context.SchoolDomains
@@ -60,8 +55,7 @@ public class AuthenticationController : Controller
 
         foreach (var error in result.Errors)
             ModelState.AddModelError(string.Empty, error.Description);
-
-        return View("~/Views/Home/Login.cshtml", model); // Again, full path to existing combined view
+        return View("~/Views/Home/Index.cshtml", model);
     }
 
 
