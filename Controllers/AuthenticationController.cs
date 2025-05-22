@@ -33,7 +33,6 @@ public class AuthenticationController : Controller
     {
         if (!ModelState.IsValid)
             return View("~/Views/Home/Login.cshtml", model);
-
         var emailDomain = model.Email.Split('@').Last().ToLower();
 
         var isAllowed = _context.SchoolDomains
@@ -56,9 +55,15 @@ public class AuthenticationController : Controller
 
         foreach (var error in result.Errors)
             ModelState.AddModelError(string.Empty, error.Description);
+<<<<<<< HEAD
 
         return View("~/Views/Home/Login.cshtml", model);
+=======
+        return View("~/Views/Home/Index.cshtml", model);
+>>>>>>> cf6f1f8ef4a58d678c2b65462077f698194593a5
     }
+
+
 
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromForm] LoginModel model, string returnUrl = null)
