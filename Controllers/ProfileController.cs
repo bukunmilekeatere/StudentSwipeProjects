@@ -50,6 +50,8 @@ namespace StudentSwipe.Controllers
             });
         }
 
+       
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -107,5 +109,35 @@ namespace StudentSwipe.Controllers
 
             return RedirectToAction("MyProfile");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AllProfiles()
+        {
+            var profiles = await _context.Profiles.ToListAsync();
+            return View(profiles);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendInvite(int profileId)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Unauthorized();
+
+            // Logic to handle invite sending, e.g., save to DB, send notification, etc.
+            TempData["Message"] = "Invite sent!";
+            return RedirectToAction("AllProfiles");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RejectInvite(int profileId)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Unauthorized();
+
+            // Logic to handle invite rejection
+            TempData["Message"] = "Invite rejected.";
+            return RedirectToAction("AllProfiles");
+        }
+
     }
 }

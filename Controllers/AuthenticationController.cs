@@ -51,13 +51,13 @@ public class AuthenticationController : Controller
         if (result.Succeeded)
         {
             await _signInManager.SignInAsync(user, isPersistent: false);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
         }
 
         foreach (var error in result.Errors)
             ModelState.AddModelError(string.Empty, error.Description);
 
-        return View("~/Views/Home/Index.cshtml", model);
+        return View("~/Views/Home/Login.cshtml", model);
     }
 
     [HttpPost("Login")]
