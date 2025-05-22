@@ -50,12 +50,17 @@ public class AuthenticationController : Controller
         if (result.Succeeded)
         {
             await _signInManager.SignInAsync(user, isPersistent: false);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
         }
 
         foreach (var error in result.Errors)
             ModelState.AddModelError(string.Empty, error.Description);
+<<<<<<< HEAD
+
+        return View("~/Views/Home/Login.cshtml", model);
+=======
         return View("~/Views/Home/Index.cshtml", model);
+>>>>>>> cf6f1f8ef4a58d678c2b65462077f698194593a5
     }
 
 
